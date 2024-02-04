@@ -4,7 +4,7 @@ const googleMapsClient = createClient({
   key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
 });
 
-let nearbyServicesTypes = [];
+export let nearbyServicesTypes = [];
 
 export default async function handler(req: any, res: any) {
   try {
@@ -12,7 +12,7 @@ export default async function handler(req: any, res: any) {
   
     // Geocode the address
     const location: LatLng = await new Promise((resolve, reject) => {
-            googleMapsClient.geocode({ address }, (err, response) => {
+            googleMapsClient.geocode({ address }, (err: any, response: { json: { results: string | any[]; }; }) => {
               if (err) reject(err);
               else {
                 if (response.json.results.length === 0) {
@@ -30,7 +30,7 @@ export default async function handler(req: any, res: any) {
           location,
           radius: 2000, // Start with a large radius
           type: types, // Filter by type
-      }, (err, response) => {
+      }, (err: any, response: unknown) => {
           if (err) reject(err);
           else resolve(response);
       });
@@ -48,7 +48,7 @@ export default async function handler(req: any, res: any) {
               destinations: [place.geometry.location],
               mode: 'walking',
             },
-            (err, response) => {
+            (err: any, response: { json: { rows: { elements: { duration: { value: unknown; }; }[]; }[]; }; }) => {
               if (err) reject(err);
               else resolve(response.json.rows[0].elements[0].duration.value);
             }

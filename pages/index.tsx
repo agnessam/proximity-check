@@ -29,10 +29,6 @@ const Map = () => {
   });
   const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
 
-  useEffect(() => {
-    console.log(isLoaded);
-  }, [isLoaded]);
-
   return (
     <div className="App">
       {!isLoaded ? (
