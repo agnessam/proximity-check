@@ -1,7 +1,7 @@
 import { LatLng, createClient } from '@google/maps';
 
 const googleMapsClient = createClient({
-  key: process.env.GOOGLE_MAPS_API_KEY as string,
+  key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
 });
 
 let nearbyServicesTypes = [];
